@@ -4,6 +4,8 @@
 # V1.16.5 20.01.21
 # GitHub Repository: https://github.com/mtoensing/RaspberryPiMinecraft
 
+Version="1.16.5"
+
 echo "Minecraft Server installation script by James Chambers and Marc Tönsing - V1.0"
 echo "Latest version always at https://github.com/mtoensing/RaspberryPiMinecraft"
 
@@ -26,7 +28,11 @@ mkdir minecraft
 cd minecraft
 
 echo "Getting latest Paper Minecraft server..."
-wget -O paperclip.jar https://papermc.io/api/v1/paper/1.16.5/latest/download
+
+BuildJSON=$(curl -H "Accept-Encoding: identity" -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" https://papermc.io/api/v2/projects/paper/versions/$Version)
+Build=$(echo "$BuildJSON" | rev | cut -d, -f 1 | cut -d] -f 2 | rev)
+Build=$(($Build + 0))
+curl -H "Accept-Encoding: identity" -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" -o paperclip.jar "https://papermc.io/api/v2/projects/paper/versions/$Version/builds/$Build/downloads/paper-$Version-$Build.jar"
 
 echo "Building the Minecraft server... "
 java -jar -Xms800M -Xmx800M paperclip.jar
