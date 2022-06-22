@@ -1,13 +1,14 @@
 #!/bin/bash
 # Original Minecraft Server Installation Script - James A. Chambers - https://www.jamesachambers.com.
 # Changes and simplifications by Marc Tönsing
+# Modified for Ubuntu / Debian by Moritz Huber
 # V1.16.5 20.01.21
-# GitHub Repository: https://github.com/mtoensing/RaspberryPiMinecraft
+# GitHub Repository: https://github.com/Huber1/PapermcUbuntuInstaller
 
-Version="1.16.5"
+Version="1.18.2"
 
-echo "Minecraft Server installation script by James Chambers and Marc Tönsing - V1.0"
-echo "Latest version always at https://github.com/mtoensing/RaspberryPiMinecraft"
+echo "Minecraft Server installation script by James Chambers and Marc Tönsing modified for Ubuntu Server by Moritz Huber - V1.1"
+echo "Latest version always at https://github.com/Huber1/PapermcUbuntuInstaller"
 
 if [ -d "minecraft" ]; then
   echo "Directory minecraft already exists!  Exiting... "
@@ -17,8 +18,8 @@ fi
 echo "Updating packages..."
 sudo apt-get update
 
-echo "Installing latest Java OpenJDK 11..."
-sudo apt-get install openjdk-11-jre-headless -y
+echo "Installing latest Java OpenJDK 17..."
+sudo apt-get install openjdk-17-jdk -y
 
 echo "Installing screen... "
 sudo apt-get install screen -y
@@ -41,18 +42,18 @@ echo "Accepting the EULA... "
 echo eula=true > eula.txt
 
 echo "Grabbing start.sh from repository... "
-wget -O start.sh https://raw.githubusercontent.com/mtoensing/RaspberryPiMinecraft/master/start.sh
+wget -O start.sh https://raw.githubusercontent.com/Huber1/PapermcUbuntuInstaller/master/start.sh
 chmod +x start.sh
 
 echo "Oh wait. Checking for total memory available..."
 TotalMemory=$(awk '/MemTotal/ { printf "%.0f\n", $2/1024 }' /proc/meminfo)
 if [ $TotalMemory -lt 3000 ]; then
   echo "Sorry, have to grab low spec start.sh from repository... "
-  wget -O start.sh https://raw.githubusercontent.com/mtoensing/RaspberryPiMinecraft/master/start_lowspec.sh
+  wget -O start.sh https://raw.githubusercontent.com/Huber1/PapermcUbuntuInstaller/master/start_lowspec.sh
 fi
 
 echo "Grabbing restart.sh from repository... "
-wget -O restart.sh https://raw.githubusercontent.com/mtoensing/RaspberryPiMinecraft/master/restart.sh
+wget -O restart.sh https://raw.githubusercontent.com/Huber1/PapermcUbuntuInstaller/master/restart.sh
 chmod +x restart.sh
 
 echo "Enter a name for your server "

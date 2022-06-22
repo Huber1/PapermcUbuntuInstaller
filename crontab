@@ -20,7 +20,9 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 #
 # m h  dom mon dow   command
+
+
 # Restarts server at 2am and 6pm. Starts server at reboot.
-0 2 * * * /home/pi/minecraft/restart.sh
-0 18 * * * /home/pi/minecraft/restart.sh
-@reboot /home/pi/minecraft/start.sh
+0 2 * * * $HOME/minecraft/restart.sh
+0 18 * * * $HOME/minecraft/restart.sh
+@reboot $HOME/minecraft/start.sh
